@@ -56,23 +56,62 @@ public class ReservationServiceImpl implements ReservationService {
                 requestedSpot = SpotType.OTHERS;
             }
 
-            int minPrice;
+            int minPrice = Integer.MAX_VALUE;
+            reserveSpot = false;
+            Spot bookedSpot = null;
 
-            for(Spot s : spotList){
-                if(requestedSpot.equals(s.getSpotType())){
-
+            if(requestedSpot.equals(SpotType.OTHERS)){
+                for(Spot s : spotList) {
+                    if(s.getSpotType().equals(SpotType.OTHERS)){
+                        int price = s.getPricePerHour() * timeInHours;
+                        if(!s.getOccupied() && price < minPrice){
+                            minPrice = price;
+                            reserveSpot = true;
+                            bookedSpot = s;
+                        }
+                    }
+                }
+            }else if(requestedSpot.equals(SpotType.FOUR_WHEELER)){
+                for(Spot s : spotList) {
+                    if(s.getSpotType().equals(SpotType.OTHERS) || s.getSpotType().equals(SpotType.FOUR_WHEELER)){
+                        int price = s.getPricePerHour() * timeInHours;
+                        if(!s.getOccupied() && price < minPrice){
+                            minPrice = price;
+                            reserveSpot = true;
+                            bookedSpot = s;
+                        }
+                    }
+                }
+            }else{
+                for(Spot s : spotList) {
+                    int price = s.getPricePerHour() * timeInHours;
+                    if(!s.getOccupied() && price < minPrice){
+                        minPrice = price;
+                        reserveSpot = true;
+                        bookedSpot = s;
+                    }
                 }
             }
 
+            if(reserveSpot == false){
+                throw new Exception("Cannot make reservation");
+            }
 
+            Reservation reservation = new Reservation();
+            reservation.setNumberOfHours(timeInHours);
+            reservation.setSpot(bookedSpot);
+            reservation.setUser(user);
 
+            bookedSpot.getReservationList().add(reservation);
+            user.getReservationList().add(reservation);
+
+            userRepository3.save(user);
+            spotRepository3.save(bookedSpot);
+
+            return reservation;
 
         }catch(Exception e){
             throw new Exception("Cannot make reservation");
         }
-
-        Reservation reservation = new Reservation();
-
-        return reservation;
     }
 }
