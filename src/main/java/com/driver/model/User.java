@@ -1,12 +1,10 @@
 package com.driver.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "User")
 public class User {
 
     @Id
@@ -17,6 +15,7 @@ public class User {
     private String phoneNumber;
     private String password;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Reservation> reservationList;
 
     public User() {

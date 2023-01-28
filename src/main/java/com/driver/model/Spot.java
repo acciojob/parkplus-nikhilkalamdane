@@ -4,12 +4,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "Spot")
 public class Spot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Enumerated(value = EnumType.STRING)
     private SpotType spotType;
+
     private int pricePerHour;
     private Boolean occupied;
 
