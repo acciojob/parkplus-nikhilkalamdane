@@ -74,9 +74,9 @@ public class ParkingLotServiceImpl implements ParkingLotService {
             }
         }
 
-        if(spot == null){
-            return  null;
-        }
+//        if(spot == null){
+//            return  null;
+//        }
 
         spot.setPricePerHour(pricePerHour);
         spot.setParkingLot(parkingLot);
