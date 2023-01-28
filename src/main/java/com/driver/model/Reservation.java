@@ -25,8 +25,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int id, int numberOfHours, User user, Spot spot, Payment payment) {
-        this.id = id;
+    public Reservation(int numberOfHours, User user, Spot spot, Payment payment) {
         this.numberOfHours = numberOfHours;
         this.user = user;
         this.spot = spot;

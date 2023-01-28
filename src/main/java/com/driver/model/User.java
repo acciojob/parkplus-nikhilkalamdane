@@ -22,8 +22,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, String phoneNumber, String password, List<Reservation> reservationList) {
-        this.id = id;
+    public User(String name, String phoneNumber, String password, List<Reservation> reservationList) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.password = password;
