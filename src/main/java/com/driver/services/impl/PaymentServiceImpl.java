@@ -24,7 +24,16 @@ public class PaymentServiceImpl implements PaymentService {
         int reservationPrice = reservation.getNumberOfHours() * reservation.getSpot().getPricePerHour();
 
         try{
-            payment.setPaymentMode(PaymentMode.valueOf(mode.toUpperCase()));
+            mode = mode.toUpperCase();
+            if(mode == PaymentMode.CASH.toString()){
+                payment.setPaymentMode(PaymentMode.CASH);
+            }else if(mode == PaymentMode.CARD.toString()){
+                payment.setPaymentMode(PaymentMode.CARD);
+            }else if(mode == PaymentMode.UPI.toString()){
+                payment.setPaymentMode(PaymentMode.UPI);
+            }else {
+                throw new Exception("Payment mode not detected");
+            }
         }catch (Exception e){
             throw new Exception("Payment mode not detected");
         }
