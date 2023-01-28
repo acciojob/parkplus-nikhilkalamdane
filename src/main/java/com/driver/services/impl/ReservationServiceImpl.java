@@ -93,9 +93,11 @@ public class ReservationServiceImpl implements ReservationService {
                 }
             }
 
-            if(reserveSpot == false){
+            if(reserveSpot == false || bookedSpot == null){
                 throw new Exception("Cannot make reservation");
             }
+
+            bookedSpot.setOccupied(true);
 
             Reservation reservation = new Reservation();
             reservation.setNumberOfHours(timeInHours);
@@ -107,11 +109,12 @@ public class ReservationServiceImpl implements ReservationService {
 
             userRepository3.save(user);
             spotRepository3.save(bookedSpot);
+            reservationRepository3.save(reservation);
 
             return reservation;
 
         }catch(Exception e){
-            return  null;
+            throw new Exception("Cannot make reservation");
         }
     }
 }
