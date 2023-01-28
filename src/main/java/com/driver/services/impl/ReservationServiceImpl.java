@@ -71,7 +71,7 @@ public class ReservationServiceImpl implements ReservationService {
         }
 
         if(reserveSpot == false){
-            throw new Exception("Reservation cannot be made!!!");
+            throw new Exception("Cannot make reservation");
         }
 
         return reservation;
