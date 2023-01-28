@@ -34,13 +34,17 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         Spot spot = new Spot();
         ParkingLot parkingLot = parkingLotRepository1.findById(parkingLotId).get();
 
+        if(parkingLot == null){
+            return null;
+        }
+
         spot.setParkingLot(parkingLot);
         spot.setPricePerHour(pricePerHour);
 
         SpotType spotType;
-        if(numberOfWheels <= 2){
+        if(numberOfWheels == 2){
             spotType = SpotType.TWO_WHEELER;
-        } else if (numberOfWheels <= 4) {
+        } else if (numberOfWheels == 4) {
             spotType = SpotType.FOUR_WHEELER;
         }else {
             spotType = SpotType.OTHERS;
